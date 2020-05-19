@@ -150,9 +150,9 @@ def final_model():
                      activation='relu',
                      name='conv1d')(input_data)
     bn_cnn = BatchNormalization(name='bn_conv_1d')(conv_1d)
-    bidir_rnn_1 = Bidirectional(GRU(64, activation='relu', return_sequences=True, name='bidir_rnn_1'))(bn_cnn)
+    bidir_rnn_1 = Bidirectional(GRU(256, activation='relu', dropout=0.2, return_sequences=True, name='bidir_rnn_1'))(bn_cnn)
     bn_rnn_1 = BatchNormalization(name='bn_gru_1')(bidir_rnn_1)
-    bidir_rnn_2 = Bidirectional(GRU(64, activation='relu', return_sequences=True, name='bidir_rnn_2'))(bn_rnn_1)
+    bidir_rnn_2 = Bidirectional(GRU(256, activation='relu', dropout=0.2, return_sequences=True, name='bidir_rnn_2'))(bn_rnn_1)
     bn_rnn_2 = BatchNormalization(name='bn_gru_2')(bidir_rnn_2)
     time_dense = TimeDistributed(Dense(output_dim))(bn_rnn_2)
     
